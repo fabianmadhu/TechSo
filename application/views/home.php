@@ -1,7 +1,7 @@
 <div class="form-signup center-block">
     <div class="panel panel-default">
         <div class="panel-body">
-            <h2 class="text-center">heap<b>underflow</b></h2>
+            <h2 class="text-center">Tech<b>So</b></h2>
             <form action="<?= base_url() ?>index.php/auth/confirmregister" method="POST" class="form-horizontal" role="form">
                 <div class="form-group">
                     <label for="fullName" class="col-sm-4 control-label">Full Name</label>
