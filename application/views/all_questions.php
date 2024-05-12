@@ -5,16 +5,32 @@
         foreach ($questions as $question) {
     ?>
             <div class="row question-container">
-                <div class="col-md-1">
+                <!-- <div class="col-md-1">
                     <div class="status-container">
                         <div class="row center-content"><span class="badge status-answer-count"><?= $question->upvoteCount ?></span></div>
+                        <div class="row center-content"><span class="status-answer-text">Votes</span></div>
+                    </div>
+                </div> -->
+                <div class="col-md-1" style="margin-left: -15px">
+                    <div class="status-container">
+                        <div class="row center-content">
+                            <span class="badge status-answer-count">
+                                <i class="fas fa-vote-yea"></i>
+                                <?= $question->upvoteCount ?> 
+                            </span>
+                        </div>
                         <div class="row center-content"><span class="status-answer-text">Votes</span></div>
                     </div>
                 </div>
 
                 <div class="col-md-1" style="margin-left: -15px">
                     <div class="status-container">
-                        <div class="row center-content"><span class="badge status-answer-count"><?= $question->answerCount ?></span></div>
+                        <div class="row center-content">
+                            <span class="badge status-answer-count">
+                                <i class="fas fa-pencil-alt"></i> 
+                                <?= $question->answerCount ?> 
+                            </span>
+                        </div>
                         <div class="row center-content"><span class="status-answer-text">Answers</span></div>
                     </div>
                 </div>

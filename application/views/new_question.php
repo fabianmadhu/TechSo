@@ -51,7 +51,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-10">
-                <a id="submit-btn" class="btn btn-success">Post</a>
+                <a id="submit-btn" class="btn btn-primary">Post</a>
             </div>
         </div>
     </form>
