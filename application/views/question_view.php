@@ -4,8 +4,8 @@
             <div>
                 <input id="question-id" type="hidden" value="<?= $question->id ?>">
                 <h2 style="display: inline-block" id="title"><?= $question->title ?></h2>
-                <a id="edit-question-link" style="display: inline-block; margin-left: 10px" href="#">Edit</a>
-                <a id="delete-question-link" style="display: inline-block; margin-left: 10px" href="#">Delete</a>
+                <a id="edit-question-link" style="display: inline-block; margin-left: 10px" href="#"><i class="fas fa-pen" style="margin-right: 5px;"></i>Edit</a>
+                <a id="delete-question-link" style="display: inline-block; margin-left: 10px" href="#"><i class="fas fa-trash" style="margin-right: 5px;"></i>Delete</a>
             </div>
 
             <div class="col-md-1">
@@ -60,12 +60,12 @@
             <div class="row"><span class="form-control text-center"><strong><%= upvoteCount %></strong></span></div>
             <div class="row center-content"><a class="btn btn-link downvote-btn" data-answer-id="<%= id %>"><span class="glyphicon glyphicon-chevron-down"></span></a></div>
         </div>
-        <div class="col-md-11">
+        <div class="col-md-11" style="top:10px">
             <span><%= description %></span>
             <div class="row">
-                <div class="col-md-3">
-                    <a class="edit-answer-link" href="#" data-answer-id="<%= id %>" data-description="<%= description %>">Edit</a>
-                    <a class="delete-answer-link" href="#" data-answer-id="<%= id %>" style="margin-left: 10px">Delete</a>
+                <div class="col-md-3 " style="top:10px">
+                    <a class="edit-answer-link" href="#" data-answer-id="<%= id %>" data-description="<%= description %>"><i class="fas fa-pen" style="margin-right: 5px;"></i>Edit</a>
+                    <a class="delete-answer-link" href="#" data-answer-id="<%= id %>" style="margin-left: 10px"><i class="fas fa-trash" style="margin-right: 5px;"></i>Delete</a>
                 </div>
                 <div class="row username-text"><a href=""><%= username %></a></div>
                 <div class="row username-text"><%= date %></div>
@@ -158,8 +158,9 @@
                 data: {
                     id: this.$('#question-id').val()
                 },
+                dataType: 'json',  
                 success: function(response) {
-                    $('#upvote-count').text(response['upvoteCount']);
+                    $('#upvote-count').text(response.upvoteCount);
                 }
             });
         },
@@ -171,8 +172,9 @@
                 data: {
                     id: this.$('#question-id').val()
                 },
+                dataType: 'json',  
                 success: function(response) {
-                    $('#upvote-count').text(response['upvoteCount']);
+                    $('#upvote-count').text(response.upvoteCount);
                 }
             });
         }
