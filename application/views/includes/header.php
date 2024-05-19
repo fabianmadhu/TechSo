@@ -30,6 +30,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <?php } ?>
                 <ul class="nav navbar-nav navbar-right">
                     <?php if (isset($isLoggedIn) && $isLoggedIn) { ?>
+                        <li style="margin-right: 20px;">
+                            <a id="show-notifications-btn" class="btn btn-primary btn-md" href="#"><span class="glyphicon glyphicon-envelope" style="padding-right: 10%;" aria-hidden="true"></span>Notification</a>
+                        </li>
                         <li>
                             <a href="<?= base_url() ?>index.php/auth/account" class="btn btn-primary btn-md"><span class="glyphicon glyphicon glyphicon-user" style="padding-right: 10%;" aria-hidden="true"></span>User</a>
                         </li>
@@ -84,3 +87,44 @@ defined('BASEPATH') or exit('No direct script access allowed');
             </div>
         <?php } ?>
     </div>
+    <div class="modal" id="edit-notification-modal" tabindex="-1" role="dialog" aria-labelledby="edit-notification-modal-label">
+    <div class="modal-dialog" style="position: absolute; top: 3%; right: 3%;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="edit-notification-modal-label">Notifications</h4>
+            </div>
+            <div class="modal-body">
+                <?php
+                if ($notifications) {
+                    foreach ($notifications as $notification) {
+                ?>
+                        <div class="notification">
+                            <h5>New answer added</h5>
+                            <p><strong>Question title:</strong> <?= $notification->questionTitle ?></p>
+                            <p><strong>Question description:</strong> <?= $notification->questionDescription ?></p>
+                        </div>
+                <?php
+                    }
+                } else {
+                    echo "<p>No new notifications.</p>";
+                }
+                ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+        console.log('dfddf')
+        $('#show-notifications-btn').on('click', function(e) {
+            e.preventDefault();
+            console.log('working')
+            $('#edit-notification-modal').modal('show');
+        });
+    });
+    </script>

@@ -13,12 +13,12 @@ class Home extends CI_Controller
 	public function index()
 	{
 		if ($this->UserModel->is_logged_in()) {
-			$questions = $this->QuestionModel->getTrendingQuestions();
-			$header = ($questions == false) ? 'Trending questions from this week would be displayed here' : 'This Week\'s Trending';
+			$questions = $this->QuestionModel->getQuestionsById(null);
+            $header = ($questions == false) ? "No questions added" : "All Questions (" . count($questions) . ")";
 
-			$this->load->view('includes/header.php', array('isLoggedIn' => true));
-			$this->load->view('all_questions', array('questions' => $questions, 'header' => $header));
-			$this->load->view('includes/footer.php');
+            $this->load->view('includes/header.php', array('isLoggedIn' => $this->UserModel->is_logged_in()));
+            $this->load->view('all_questions', array('questions' => $questions, 'header' => $header));
+            $this->load->view('includes/footer.php');
 		} else {
 			$this->load->view('includes/header.php');
 			$this->load->view('home');

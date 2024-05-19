@@ -22,17 +22,7 @@ class Question extends REST_Controller
         $title = $this->post('title');
         $description = $this->post('description');
 
-        // if (empty($title)) {
-        //     $this->response(array('error' => 'Title is required'), 400);
-        //     return;
-        // }
-
-        // $data = array(
-        //     'username' => $username,
-        //     'title' => $title,
-        //     'category' => $category,
-        //     'description' => $description
-        // );
+        
 
         $questionId = $this->QuestionModel->addQuestion($username, $category, $title, $description);
 
