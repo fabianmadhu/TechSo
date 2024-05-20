@@ -1,5 +1,5 @@
 <div class="container">
-    <div id="question-section">
+    <div id="question-detail-section">
         <div class="col-md-12 row question-container" style="padding-top: 0">
             <div>
                 <input id="question-id" type="hidden" value="<?= $question->id ?>">
@@ -46,7 +46,7 @@
                 <div class="form-group">
                     <textarea id="answer-description" rows="8" cols="70"></textarea>
                 </div>
-                <a id="answer-submit-btn" class="btn btn-success">Answer</a>
+                <a id="answer-submit-btn" class="btn btn-primary">Answer</a>
             </form>
         </div>
     </div>
@@ -93,16 +93,16 @@
     });
 
     let QuestionSectionView = Backbone.View.extend({
-        el: '#question-section',
+        el: '#question-detail-section',
 
         events: {
-            'click #save-quiz-changes-btn': 'saveQuizChanges',
-            'click #delete-question-link': 'deleteQuiz',
-            'click .upvote-btn': 'upvote',
-            'click .downvote-btn': 'downvote'
+            'click #save-question-changes-btn': 'saveQuestionChanges',
+            'click #delete-question-link': 'deleteQuestion',
+            'click .upvote-btn': 'upvoteQuestion',
+            'click .downvote-btn': 'downvoteQuestion'
         },
 
-        saveQuizChanges: function() {
+        saveQuestionChanges: function() {
             let question = new Question({});
 
             question.save({
@@ -133,7 +133,7 @@
             });
         },
 
-        deleteQuiz: function(e) {
+        deleteQuestion: function(e) {
             e.preventDefault();
             if (confirm("Are you sure you want to delete this question?")) {
                 let question = new Question({});
@@ -151,7 +151,7 @@
             }
         },
 
-        upvote: function(e) {
+        upvoteQuestion: function(e) {
             $.ajax({
                 url: '<?= base_url() ?>index.php/question/upvote',
                 method: 'POST',
@@ -165,7 +165,7 @@
             });
         },
 
-        downvote: function(e) {
+        downvoteQuestion: function(e) {
             $.ajax({
                 url: '<?= base_url() ?>index.php/question/downvote',
                 method: 'POST',

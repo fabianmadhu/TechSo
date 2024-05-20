@@ -16,7 +16,7 @@ class Home extends CI_Controller
 			$questions = $this->QuestionModel->getQuestionsById(null);
             $header = ($questions == false) ? "No questions added" : "All Questions (" . count($questions) . ")";
 
-            $this->load->view('includes/header.php', array('isLoggedIn' => $this->UserModel->is_logged_in()));
+            $this->load->view('includes/header.php', array('isSignedIn' => $this->UserModel->is_logged_in()));
             $this->load->view('all_questions', array('questions' => $questions, 'header' => $header));
             $this->load->view('includes/footer.php');
 		} else {

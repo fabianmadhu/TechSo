@@ -1,5 +1,5 @@
 <style>
-    .card {
+    .box {
         border: 1px solid #ccc;
         margin-bottom: 15px;
         border-radius: 6px;
@@ -7,12 +7,12 @@
         background-color: #f8f9fa;
     }
 
-    .card-header,
-    .card-footer {
+    .box-higher,
+    .box-lower {
         padding: 10px;
     }
 
-    .card-body {
+    .box-content{
         padding: 15px;
     }
 
@@ -31,30 +31,30 @@
 
 <div class="container">
     <div class="row">
-        <h2 style="padding-left: 15px">All Categories</h2>
+        <h2 style="padding-left: 20px">Available Categories </h2>
 
         <?php if ($categories) {
-            $colors = array('#3F51B5', '#009688', '#F44336', '#9C27B0', '#FF5722', '#4CAF50');
+            
 
             foreach ($categories as $category) {
-                $randomColor = $colors[array_rand($colors)]; ?>
+                 ?>
 
-                <div class="col-md-4">
-                    <div class="card" style="border-color: <?= $randomColor ?>">
+                <div class="col-md-10">
+                    <div class="box" >
                         <a href="<?= base_url() ?>index.php/question/question/category/<?= $category->name ?>">
-                            <div class="card-header">
+                            <div class="box-higher">
                                 <span class="label label-primary label-hover">
                                     <?= $category->name ?>
                                 </span>
                             </div>
                         </a>
 
-                        <div class="card-body">
+                        <div class="box-content">
                             <?= $category->description ?>
                         </div>
 
-                        <div class="card-footer">
-                            <?= $category->questionCount ?> questions
+                        <div class="box-lower">
+                            <?= $category->questionCount ?> questions available
                         </div>
                     </div>
                 </div>

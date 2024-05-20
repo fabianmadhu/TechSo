@@ -1,17 +1,17 @@
 <div class="container">
     <h2>Ask Question</h2>
 
-    <form id="question-form" class="form-horizontal" role="form">
+    <form id="new-question-form" class="form-horizontal" role="form">
         <div class="form-group">
-            <label for="title" class="col-sm-1 control-label">Title</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="title" placeholder="Title">
+            <label for="title" class="col-sm-2 control-label">Question Title</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="title" placeholder="Title of the Question">
             </div>
         </div>
 
         <div class="form-group">
-            <label for="category" class="col-sm-1 control-label">Category</label>
-            <div class="col-sm-10">
+            <label for="category" class="col-sm-2 control-label">Question Category</label>
+            <div class="col-sm-9">
                 <select id="category">
                     <?php
                     if ($categories) {
@@ -36,9 +36,9 @@
         </div>
 
         <div class="form-group">
-            <label for="description" class="col-sm-1 control-label">Description</label>
-            <div class="col-sm-10">
-                <textarea rows="5" class="form-control" id="description" placeholder="Description"></textarea>
+            <label for="description" class="col-sm-2 control-label">Question Description</label>
+            <div class="col-sm-9">
+                <textarea rows="5" class="form-control" id="description" placeholder="Write your Question Briefly"></textarea>
             </div>
         </div>
 
@@ -51,7 +51,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-10">
-                <a id="submit-btn" class="btn btn-primary">Post</a>
+                <a id="post-btn" class="btn btn-primary">Post</a>
             </div>
         </div>
     </form>
@@ -79,16 +79,16 @@
     });
 
     // Defining the QuestionForm View
-    let QuestionFormView = Backbone.View.extend({
-        el: '#question-form',
+    let QuestionViewForm = Backbone.View.extend({
+        el: '#new-question-form',
 
         // Defining the events for the view
         events: {
-            'click #submit-btn': 'submitQuestion'
+            'click #post-btn': 'postQuestion'
         },
 
         // Defining the submitQuestion function
-        submitQuestion: function() {
+        postQuestion: function() {
             let question = new Question({
                 title: this.$('#title').val(),
                 category: this.$('#category').val(),
@@ -97,15 +97,19 @@
 
             question.save({}, {
                 success: function(model, response) {
-                    window.location.href = '<?= base_url() ?>index.php/question/question/id/' + response.id;
+                    let jsonResponse = JSON.parse(response);
+                    if (jsonResponse.status === 'success') {
+                        window.location.href = '<?= base_url() ?>index.php/question/question/id/' + jsonResponse.data.questionId;
+                    }
                 },
                 error: function(model, response) {
-                    console.log(response.error);
+                    let jsonResponse = JSON.parse(response.responseText);
+                    console.log(jsonResponse.message);
                 }
             });
         }
     });
 
     // Instantiating the QuestionForm View
-    let questionFormView = new QuestionFormView();
+    let questionViewForm = new QuestionViewForm();
 </script>

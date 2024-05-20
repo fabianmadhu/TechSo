@@ -19,6 +19,89 @@ body {
 	background-color: #000000;
 }
 
+.header-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1030;
+    background-color: #145A59;
+    height: 50px; /* Adjust as needed */
+}
+
+.header-bar .navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-bar .navbar-brand {
+    font-size: 24px; /* Adjust as needed */
+}
+
+.header-bar .form-control {
+    width: 200px; /* Adjust as needed */
+}
+
+.header-bar a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px; /* Adjust as needed */
+}
+
+.header-bar a:hover {
+    color: #ddd;
+    text-decoration: none;
+}
+
+.header-bar .glyphicon {
+    margin-right: 5px;
+    font-size: 18px; /* Adjust as needed */
+}
+.header-bar ul li {
+    display: inline-block;
+}
+
+.user-details {
+    padding-bottom: 10px;
+    margin: 42px 0 22px;
+    border-bottom: 2px solid #ddd;
+}
+
+.login-form-container {
+	max-width: 50%;
+    padding-bottom: 10px;
+    margin: 42px 250px 22px;
+    border-bottom: 2px solid #ddd;
+}
+
+.login-panel {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.login-panel-body {
+    padding: 15px;
+}
+
+.login-form-group {
+    margin-bottom: 15px;
+}
+
+.login-form-control {
+    display: block;
+    width: 20%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
 /* Custom page CSS
 -------------------------------------------------- */
 

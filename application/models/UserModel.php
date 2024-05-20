@@ -9,7 +9,7 @@ class UserModel extends CI_Model
         $this->load->database();
     }
 
-    function create($fullName, $username, $password)
+    function createUser($fullName, $username, $password)
     {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         if ($this->db->insert('user', array('fullName' => $fullName, 'username' => $username, 'password' => $hashed_password))) {
@@ -19,7 +19,7 @@ class UserModel extends CI_Model
         }
     }
 
-    function authenticate($username, $password)
+    function authenticateUser($username, $password)
     {
         $query = $this->db->get_where('user', array('username' => $username));
 
@@ -44,7 +44,7 @@ class UserModel extends CI_Model
         }
     }
 
-    function getAccountName($username)
+    function getUserName($username)
     {
         $this->db->where('username', $username);
         $query = $this->db->get('user');
@@ -62,7 +62,7 @@ class UserModel extends CI_Model
         $this->db->update('user', array('fullName' => $fullName));
     }
 
-    function changePassword($username, $oldPassword, $newPassword)
+    function editPassword($username, $oldPassword, $newPassword)
     {
         $query = $this->db->get_where('user', array('username' => $username));
 

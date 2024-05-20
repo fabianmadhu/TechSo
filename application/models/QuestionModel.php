@@ -9,7 +9,7 @@ class QuestionModel extends CI_Model
         $this->load->database();
     }
 
-    function addQuestion($username, $category, $title, $description)
+    function insertQuestion($username, $category, $title, $description)
     {
         $this->db->set('questionCount', 'questionCount + 1', FALSE);
         $this->db->where('name', $category);
@@ -72,21 +72,21 @@ class QuestionModel extends CI_Model
 
     function getTrendingQuestions()
     {
-        $this->db->where('date >=', date('Y-m-d', strtotime('-1 week')));
-        $this->db->order_by('upvoteCount', 'DESC');
-        $query = $this->db->get('question');
+        // $this->db->where('date >=', date('Y-m-d', strtotime('-1 week')));
+        // $this->db->order_by('upvoteCount', 'DESC');
+        // $query = $this->db->get('question');
 
-        if ($query->num_rows() == 0) {
-            return false;
-        }
-        $questions = array();
-        foreach ($query->result() as $row) {
-            $questions[] = $row;
-        }
-        return $questions;
+        // if ($query->num_rows() == 0) {
+        //     return false;
+        // }
+        // $questions = array();
+        // foreach ($query->result() as $row) {
+        //     $questions[] = $row;
+        // }
+        // return $questions;
     }
 
-    function getCategories()
+    function fetchCategories()
     {
         $query = $this->db->get('category');
 
@@ -100,7 +100,7 @@ class QuestionModel extends CI_Model
         return $categories;
     }
 
-    function update($id, $username, $category, $title, $description)
+    function updateQuestion($id, $username, $category, $title, $description)
     {
         //Retrieve the existing category from the question table
         $this->db->where('id', $id);
@@ -124,7 +124,7 @@ class QuestionModel extends CI_Model
         $this->db->update('question', array('category' => $category, 'title' => $title, 'description' => $description));
     }
 
-    function remove($username, $id)
+    function removeQuestion($username, $id)
     {
         //Retrieve the category from the question table
         $this->db->where('id', $id);
@@ -140,14 +140,14 @@ class QuestionModel extends CI_Model
         $this->db->delete('question', array('username' => $username, 'id' => $id));
     }
 
-    function upvote($id)
+    function likevote($id)
     {
         $this->db->set('upvoteCount', 'upvoteCount+1', FALSE);
         $this->db->where('id', $id);
         $this->db->update('question');
     }
 
-    function downvote($id)
+    function dislikevote($id)
     {
         $this->db->set('upvoteCount', 'upvoteCount-1', FALSE);
         $this->db->where('id', $id);

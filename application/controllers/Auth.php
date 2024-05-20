@@ -10,20 +10,20 @@ class Auth extends CI_Controller
     }
 
     public function confirmregister()
-    {
-        $fullName = $this->input->post('fullName');
-        $username = $this->input->post('username');
-        $password = $this->input->post('password');
-        if (!$this->UserModel->create($fullName, $username, $password)) {
-            //TODO: redirect to register again with an error message
-        } else {
-            $this->load->view('includes/header.php');
-            $this->load->view('confirmregister');
-            $this->load->view('includes/footer.php');
-        }
-    }
+{
+    $fullName = $this->input->post('fullName');
+    $username = $this->input->post('username');
+    $password = $this->input->post('password');
+    $is_registered = $this->UserModel->createUser($fullName, $username, $password);
 
-    public function login()
+    if ($is_registered) {
+        echo json_encode(array('is_registered' => true, 'redirect_url' => base_url() . 'index.php/auth/signin'));
+    } else {
+        echo json_encode(array('is_registered' => false, 'error_msg' => 'Registration failed.'));
+    }
+}
+
+    public function signin()
     {
         if (isset($this->session->login_error) && $this->session->login_error == true) {
             // $this->session->login_error = false;
@@ -43,46 +43,61 @@ class Auth extends CI_Controller
         }
     }
 
+    // public function authenticate()
+    // {
+    //     $username = $this->input->post('username');
+    //     $password = $this->input->post('password');
+    //     if ($this->UserModel->authenticateUser($username, $password)) {
+    //         $this->session->is_logged_in = true;
+    //         $this->session->username = $username;
+    //         redirect('');
+    //     } else {
+    //         $this->session->login_error = true;
+    //         redirect('/auth/signin');
+    //     }
+    // }
     public function authenticate()
     {
         $username = $this->input->post('username');
         $password = $this->input->post('password');
-        if ($this->UserModel->authenticate($username, $password)) {
+        $is_logged_in = $this->UserModel->authenticateUser($username, $password);
+    
+        if ($is_logged_in) {
             $this->session->is_logged_in = true;
             $this->session->username = $username;
-            redirect('');
+            echo json_encode(array('is_logged_in' => true));
         } else {
             $this->session->login_error = true;
-            redirect('/auth/login');
+            echo json_encode(array('is_logged_in' => false, 'error_msg' => 'Invalid username or password.'));
         }
     }
 
-    public function account()
+    public function userAccount()
     {
         $username = $this->session->username;
-        $fullName = $this->UserModel->getAccountName($username);
+        $fullName = $this->UserModel->getUserName($username);
 
-        $this->load->view('includes/header.php', array('isLoggedIn' => $this->UserModel->is_logged_in()));
+        $this->load->view('includes/header.php', array('isSignedIn' => $this->UserModel->is_logged_in()));
         $this->load->view('account', array('fullName' => $fullName));
         $this->load->view('includes/footer.php');
     }
 
-    public function changename()
+    public function editname()
     {
         $username = $this->session->username;
         $newFullName = $this->input->post('fullName');
         $this->UserModel->changeFulLName($username, $newFullName);
 
         header('Content-Type: application/json');
-        echo json_encode($this->UserModel->getAccountName($username));
+        echo json_encode($this->UserModel->getUserName($username));
     }
 
-    public function changepassword()
+    public function editpassword()
     {
         $username = $this->session->username;
         $oldPassword = $this->input->post('oldPassword');
         $newPassword = $this->input->post('newPassword');
-        $success = $this->UserModel->changePassword($username, $oldPassword, $newPassword);
+        $success = $this->UserModel->editPassword($username, $oldPassword, $newPassword);
 
         if ($success) {
             $this->session->is_logged_in = false;
@@ -93,7 +108,7 @@ class Auth extends CI_Controller
         }
     }
 
-    public function logout()
+    public function signout()
     {
         $this->session->is_logged_in = false;
         redirect('');

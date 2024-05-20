@@ -61,7 +61,7 @@ class Answer extends REST_Controller
     public function answer_delete($id)
     {
         $username = $this->session->username;
-        $this->AnswerModel->remove($username, $id);
+        $this->AnswerModel->removeAnswer($username, $id);
 
         $this->set_response(null, REST_Controller::HTTP_NO_CONTENT);
     }

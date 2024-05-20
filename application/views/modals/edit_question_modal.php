@@ -33,7 +33,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="save-quiz-changes-btn">Save Changes</button>
+                <button type="button" class="btn btn-primary" id="save-question-changes-btn">Save Changes</button>
             </div>
         </div>
     </div>

@@ -61,7 +61,7 @@ class AnswerModel extends CI_Model
         $this->db->update('answer', array('description' => $description));
     }
 
-    function remove($username, $id)
+    function removeAnswer($username, $id)
     {
         //Retrieve the questionId from the answer table
         $this->db->where('id', $id);
